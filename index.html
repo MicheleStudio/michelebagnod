@@ -654,14 +654,33 @@ body{
   /* Image grids */
   .pp-img-grid{grid-template-columns:1fr;}
   .pp-img-half{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3;}
-  .font-hero-img{aspect-ratio:3/4;}
-  .font-grid-3,.font-grid-4,.font-grid-2{grid-template-columns:1fr;}
-  .font-grid-3 .fg-cell,.font-grid-4 .fg-cell,.font-grid-2 .fg-cell{
-    border-right:none !important;aspect-ratio:3/4;
+
+  /* FONT fashion grids — 2-col portrait on mobile, consistent crops */
+  .font-hero-img{aspect-ratio:2/3;}
+
+  /* font-grid-2: keep 2 cols, portrait */
+  .font-grid-2{grid-template-columns:1fr 1fr;}
+  .font-grid-2 .fg-cell{aspect-ratio:2/3;border-right:1px solid var(--line) !important;}
+  .font-grid-2 .fg-cell:last-child{border-right:none !important;}
+  .font-grid-2 .fg-cell:nth-child(n+1){border-top:none;}
+
+  /* font-grid-3: 2-col top + 1 full-width bottom */
+  .font-grid-3{grid-template-columns:1fr 1fr;}
+  .font-grid-3 .fg-cell{aspect-ratio:2/3;}
+  .font-grid-3 .fg-cell:nth-child(1){border-right:1px solid var(--line) !important;}
+  .font-grid-3 .fg-cell:nth-child(2){border-right:none !important;}
+  .font-grid-3 .fg-cell:nth-child(3){
+    grid-column:1/-1;border-right:none !important;
+    border-top:1px solid var(--line);aspect-ratio:3/2;
   }
-  .font-grid-3 .fg-cell:not(:first-child),
-  .font-grid-4 .fg-cell:not(:first-child),
-  .font-grid-2 .fg-cell:not(:first-child){border-top:1px solid var(--line);}
+
+  /* font-grid-4: 2x2 grid, portrait */
+  .font-grid-4{grid-template-columns:1fr 1fr;}
+  .font-grid-4 .fg-cell{aspect-ratio:2/3;}
+  .font-grid-4 .fg-cell:nth-child(1){border-right:1px solid var(--line) !important;}
+  .font-grid-4 .fg-cell:nth-child(2){border-right:none !important;}
+  .font-grid-4 .fg-cell:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line) !important;}
+  .font-grid-4 .fg-cell:nth-child(4){border-top:1px solid var(--line);border-right:none !important;}
   .vinyl-grid,.merch-grid-2{grid-template-columns:1fr;}
   .vinyl-grid .vg-cell,.merch-grid-2 .mg-cell{border-right:none;border-bottom:1px solid var(--line);}
   .ep-grid-2{grid-template-columns:1fr;}
@@ -756,7 +775,7 @@ body{
           </div>
         </div>
         <div class="pr-row-preview">
-          <img src="images/project-1/Posters_wall.webp" alt="LSE Catering">
+          <img src="images/project-1/Poster_don_t_waste_food.webp" alt="LSE Catering">
           <span class="pr-row-arrow"></span>
         </div>
       </a>
