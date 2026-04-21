@@ -598,9 +598,9 @@ body{
   .font-grid-4 .fg-cell:nth-child(2){border-right:none;}
   .font-grid-4 .fg-cell:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line);}
   .font-grid-4 .fg-cell:nth-child(4){border-top:1px solid var(--line);}
-  .font-grid-3{grid-template-columns:repeat(2,1fr);}
-  .font-grid-3 .fg-cell:nth-child(2){border-right:none;}
-  .font-grid-3 .fg-cell:nth-child(3){grid-column:1/-1;border-right:none;border-top:1px solid var(--line);aspect-ratio:4/3;}
+  .font-grid-3{grid-template-columns:repeat(3,1fr);}
+  .font-grid-3 .fg-cell:nth-child(2){border-right:1px solid var(--line);}
+  .font-grid-3 .fg-cell:nth-child(3){border-right:none;}
   .ep-grid-portrait{grid-template-columns:1fr;}
   .ep-grid-portrait .ep-cell-tall{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:3/2;}
   .sd-pair{grid-template-columns:1fr;}
@@ -664,15 +664,12 @@ body{
   .font-grid-2 .fg-cell:last-child{border-right:none !important;}
   .font-grid-2 .fg-cell:nth-child(n+1){border-top:none;}
 
-  /* font-grid-3: 2-col top + 1 full-width bottom */
-  .font-grid-3{grid-template-columns:1fr 1fr;}
+  /* font-grid-3: all 3 equal portrait cells on mobile */
+  .font-grid-3{grid-template-columns:repeat(3,1fr);}
   .font-grid-3 .fg-cell{aspect-ratio:2/3;}
   .font-grid-3 .fg-cell:nth-child(1){border-right:1px solid var(--line) !important;}
-  .font-grid-3 .fg-cell:nth-child(2){border-right:none !important;}
-  .font-grid-3 .fg-cell:nth-child(3){
-    grid-column:1/-1;border-right:none !important;
-    border-top:1px solid var(--line);aspect-ratio:4/3;
-  }
+  .font-grid-3 .fg-cell:nth-child(2){border-right:1px solid var(--line) !important;}
+  .font-grid-3 .fg-cell:nth-child(3){border-right:none !important;}
 
   /* font-grid-4: 2x2 grid, portrait */
   .font-grid-4{grid-template-columns:1fr 1fr;}
@@ -997,7 +994,7 @@ body{
   <div class="font-grid-3">
     <div class="fg-cell"><img src="images/project-2/RIK09877.jpg" alt="Teal halter jumpsuit"></div>
     <div class="fg-cell"><img src="images/project-2/RIK00022.jpg" alt="Black/white botanical maxi"></div>
-    <div class="fg-cell"><img src="images/project-2/RIK00048.jpg" alt="Teal botanical seated" style="object-position:center 30%;"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00048.jpg" alt="Teal botanical seated"></div>
   </div>
   <div class="pp-cap"><span class="pp-cpt">Teal/Black · halter jumpsuit / Black-White botanical / Botanical seated</span><span class="pp-cpt">Fig. 02–04</span></div>
   <div class="font-grid-2">
