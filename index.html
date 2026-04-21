@@ -147,7 +147,7 @@ body{
   white-space:nowrap;
   opacity:0;
   transform:translateY(8px);
-  transition:opacity .7s 1.6s ease, transform .7s 1.6s ease;
+  transition:opacity .5s .3s ease, transform .5s .3s ease;
 }
 .hero-tagline.rev{opacity:1;transform:translateY(0);}
 
@@ -920,7 +920,7 @@ body{
     </div>
     <div class="contact-right sa sa-d1">
       <form class="cf" id="contact-form" onsubmit="submitForm(event)">
-        <input type="hidden" name="access_key" value="f4a7b2c1-3e8d-4f9a-b6c2-d1e5f8a3b7c4">
+        <input type="hidden" name="access_key" value="9d9a0716-15ad-41d3-b3e1-5dac92b9092e">
         <input type="hidden" name="to" value="info@michelebagnod.com">
         <input type="checkbox" name="botcheck" style="display:none;">
         <div class="cf-row">
@@ -1248,10 +1248,10 @@ window.addEventListener('load',()=>{
         nameEl.innerHTML='';
         pixelScramble(nameEl,'MICHELE BAGNOD');
       }
-      // tagline fades in after name settles
+      // tagline fades in quickly after name settles
       setTimeout(()=>{
         document.querySelector('.hero-tagline')?.classList.add('rev');
-      }, 600);
+      }, 200);
     },950);
   },120);
   setTimeout(()=>{
@@ -1329,7 +1329,7 @@ async function submitForm(e){
   btn.disabled=true;
 
   const data=new FormData(form);
-  data.append('access_key','f4a7b2c1-3e8d-4f9a-b6c2-d1e5f8a3b7c4');
+  data.append('access_key','9d9a0716-15ad-41d3-b3e1-5dac92b9092e');
   data.append('subject', data.get('subject') || 'New message from michelebagnod.com');
   data.append('from_name','michelebagnod.com');
 
@@ -1363,7 +1363,8 @@ const titles={
   4:'Abana · Sativa Jazz',5:'Ivreatronic',6:'Spatial Design',
   7:'Your Playground is the Sun'
 };
-function showProject(n){
+
+function showProject(n, pushHistory=true){
   document.getElementById('main-content').classList.add('hidden');
   document.getElementById('top-bar').style.display='none';
   document.getElementById('proj-bar').style.display='flex';
@@ -1371,15 +1372,47 @@ function showProject(n){
   document.querySelectorAll('.project-page').forEach(p=>p.classList.remove('active'));
   document.getElementById('project-'+n).classList.add('active');
   window.scrollTo(0,0);
+  // Push a history entry so browser back button returns to homepage
+  if(pushHistory){
+    history.pushState({project:n},'',`#project-${n}`);
+  }
 }
-function showHome(){
+
+function showHome(pushHistory=false){
   document.getElementById('main-content').classList.remove('hidden');
   document.getElementById('top-bar').style.display='flex';
   document.getElementById('proj-bar').style.display='none';
   document.querySelectorAll('.project-page').forEach(p=>p.classList.remove('active'));
   closeDrawer();
   window.scrollTo(0,0);
+  // Only push state if navigating forward to home (not when triggered by popstate)
+  if(pushHistory){
+    history.pushState({project:null},'','#');
+  }
 }
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', e=>{
+  if(e.state && e.state.project){
+    showProject(e.state.project, false);
+  } else {
+    showHome(false);
+  }
+});
+
+// Handle direct URL load with hash (e.g. michelebagnod.com#project-3)
+window.addEventListener('DOMContentLoaded',()=>{
+  const hash=window.location.hash;
+  if(hash && hash.startsWith('#project-')){
+    const n=parseInt(hash.replace('#project-',''));
+    if(n>=1 && n<=7){
+      showProject(n, false);
+      history.replaceState({project:n},'',hash);
+    }
+  } else {
+    history.replaceState({project:null},'',window.location.href);
+  }
+});
 </script>
 </body>
 </html>
