@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michele Bagnod</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:    #F2F0EB;
+  --bg2:   #EAE8E2;
+  --bg3:   #E2DFD8;
+  --line:  #C8C5BC;
+  --ink:   #1C1C1A;
+  --dim:   #7A7870;
+  --muted: #B0ADA5;
+  --sans:  'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --nav-h: 3rem;
+  --sp-s:  1rem;
+  --sp-m:  1.5rem;
+  --sp-l:  2rem;
+  --sp-xl: 3rem;
+  --sp-2x: 5rem;
+}
+html{font-size:16px;scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-weight:400;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+/* ── NAV ── */
+.top-bar{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.75rem var(--sp-l);
+  background:var(--bg);border-bottom:1px solid var(--line);
+  min-height:var(--nav-h);
+}
+.tb-name{
+  font-size:.6rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;flex-shrink:0;
+}
+.tb-links{display:flex;gap:var(--sp-l);list-style:none;}
+.tb-links a{
+  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;transition:color .2s;
+}
+.tb-links a:hover{color:var(--ink);}
+.tb-hamburger{
+  display:none;flex-direction:column;gap:4px;
+  cursor:pointer;background:none;border:none;padding:4px;
+}
+.tb-hamburger span{
+  display:block;width:20px;height:1px;background:var(--ink);
+  transition:transform .3s,opacity .3s;
+}
+.tb-hamburger.open span:nth-child(1){transform:translateY(5px) rotate(45deg);}
+.tb-hamburger.open span:nth-child(2){opacity:0;}
+.tb-hamburger.open span:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
+.tb-drawer{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:299;
+  background:var(--bg2);border-bottom:1px solid var(--line);flex-direction:column;
+}
+.tb-drawer.open{display:flex;}
+.tb-drawer a{
+  padding:var(--sp-m) var(--sp-l);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dim);text-decoration:none;
+  border-bottom:1px solid var(--line);transition:color .2s;
+}
+.tb-drawer a:hover{color:var(--ink);}
+.tb-status{
+  font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  display:flex;align-items:center;gap:.5rem;flex-shrink:0;
+}
+.tb-status::before{
+  content:'';display:inline-block;width:5px;height:5px;
+  border-radius:50%;background:var(--ink);
+  animation:blink 2.2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+.proj-bar{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:none;justify-content:space-between;align-items:center;
+  padding:.75rem var(--sp-l);
+  background:var(--bg);border-bottom:1px solid var(--line);min-height:var(--nav-h);
+}
+.back-btn{
+  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);cursor:pointer;background:none;border:none;
+  font-family:var(--sans);transition:color .2s;padding:0;
+}
+.back-btn::before{content:'← ';}
+.back-btn:hover{color:var(--ink);}
+.proj-bar-title{
+  font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  text-align:center;flex:1;padding:0 var(--sp-s);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ── HERO ── */
+.hero{
+  padding-top:var(--nav-h);min-height:100vh;
+  display:flex;flex-direction:column;
+  border-bottom:1px solid var(--line);overflow:hidden;
+}
+.hero-top{
+  padding:var(--sp-xl) var(--sp-l) 0;
+  display:flex;justify-content:space-between;
+}
+.hero-label{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}
+
+/* Name — centred, fills the full middle of the hero */
+.hero-big{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 var(--sp-l);
+  text-align:center;
+}
+.hero-big h1{
+  font-size:clamp(3rem,10.5vw,11rem);
+  font-weight:700;letter-spacing:-.04em;line-height:.88;
+  text-transform:uppercase;color:var(--ink);
+  white-space:nowrap;
+}
+.hero-big h1 .line{display:block;overflow:hidden;}
+.hero-big h1 .line em{
+  display:block;font-style:normal;
+  transform:translateY(105%);
+  transition:transform 1s cubic-bezier(.16,1,.3,1);
+}
+.hero-big h1 .line em.rev{transform:translateY(0);}
+.hero-bottom{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);}
+.hero-bl{
+  padding:var(--sp-m) var(--sp-l);border-right:1px solid var(--line);
+  font-size:.72rem;color:var(--dim);line-height:1.8;
+}
+.hero-br{
+  padding:var(--sp-m) var(--sp-l);
+  display:flex;justify-content:flex-end;align-items:flex-end;
+  font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+}
+.scroll-hint{display:flex;align-items:center;gap:.8rem;}
+.scroll-dash{
+  width:28px;height:1px;background:var(--muted);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1s 1.1s cubic-bezier(.16,1,.3,1);
+}
+.scroll-dash.rev{transform:scaleX(1);}
+
+/* ── BIG SECTION HEADERS ── */
+.big-section{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:var(--sp-s) var(--sp-l);border-bottom:1px solid var(--line);overflow:hidden;
+}
+.big-section-word{
+  font-size:clamp(2.2rem,6vw,6rem);font-weight:700;
+  letter-spacing:-.04em;line-height:.9;text-transform:uppercase;color:var(--ink);overflow:hidden;
+}
+.big-section-word span{display:block;transform:translateY(105%);transition:transform .85s cubic-bezier(.16,1,.3,1);}
+.big-section-word span.rev{transform:translateY(0);}
+.big-section-word.right span{transition-delay:.06s;}
+.big-section-meta{
+  font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);align-self:flex-end;flex-shrink:0;padding:0 var(--sp-s) .4rem;
+}
+/* Single-word section header (PROJECTS) */
+.big-section-single{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:var(--sp-s) var(--sp-l);border-bottom:1px solid var(--line);overflow:hidden;
+}
+.big-section-single-word{
+  font-size:clamp(2.2rem,6vw,6rem);font-weight:700;
+  letter-spacing:-.04em;line-height:.9;text-transform:uppercase;color:var(--ink);overflow:hidden;
+}
+.big-section-single-word span{display:block;transform:translateY(105%);transition:transform .85s cubic-bezier(.16,1,.3,1);}
+.big-section-single-word span.rev{transform:translateY(0);}
+
+/* ── MARQUEE ── */
+.marquee{
+  overflow:hidden;border-bottom:1px solid var(--line);
+  padding:.7rem 0;background:var(--bg);white-space:nowrap;
+}
+.marquee-inner{display:inline-block;animation:mq 28s linear infinite;}
+.marquee-inner span{
+  font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);padding:0 2rem;
+}
+.marquee-inner span.sep{color:var(--muted);}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── PROJECT ROWS with image preview ── */
+.project-row{
+  display:grid;grid-template-columns:1fr 340px;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;text-decoration:none;color:inherit;
+  background:var(--bg);
+  transition:background .3s;
+  /* scroll animation */
+  opacity:0;transform:translateY(32px);
+  transition:opacity .65s cubic-bezier(.16,1,.3,1),
+             transform .65s cubic-bezier(.16,1,.3,1),
+             background .3s;
+}
+.project-row.visible{opacity:1;transform:translateY(0);}
+.project-row.exit{opacity:0;transform:translateY(-20px);}
+.project-row:hover{background:var(--bg2);}
+
+.pr-main{
+  padding:var(--sp-l) var(--sp-l);
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:1px solid var(--line);gap:var(--sp-m);
+}
+.pr-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--sp-s);}
+.pr-title{
+  font-size:clamp(1.6rem,3.2vw,3.2rem);font-weight:700;
+  letter-spacing:-.03em;line-height:.95;text-transform:uppercase;color:var(--ink);
+}
+.pr-arrow{font-size:1.1rem;color:var(--dim);flex-shrink:0;transition:transform .3s,color .3s;}
+.project-row:hover .pr-arrow{transform:translate(3px,-3px);color:var(--ink);}
+.pr-meta{display:flex;gap:var(--sp-l);flex-wrap:wrap;}
+.pr-cat,.pr-yr{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}
+
+/* Image preview panel */
+.pr-preview{
+  position:relative;overflow:hidden;
+  background:var(--bg3);
+  aspect-ratio:auto;
+}
+.pr-preview img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  display:block;
+  transform:scale(1.06);
+  transition:transform .65s cubic-bezier(.16,1,.3,1);
+}
+.project-row:hover .pr-preview img{transform:scale(1);}
+.pr-num-overlay{
+  position:absolute;bottom:var(--sp-s);right:var(--sp-s);
+  font-size:clamp(1.8rem,3vw,3rem);font-weight:700;
+  letter-spacing:-.03em;color:rgba(255,255,255,.55);
+  line-height:1;user-select:none;
+  mix-blend-mode:screen;
+}
+
+/* ── APPROACH ── */
+.approach-block{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.appr-index{
+  padding:var(--sp-2x) var(--sp-l);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:background .3s;
+}
+.appr-index:hover{background:var(--bg2);}
+.appr-index-label{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}
+.appr-index-num{
+  font-size:clamp(6rem,15vw,14rem);font-weight:700;
+  letter-spacing:-.05em;line-height:1;color:var(--bg3);user-select:none;
+  transition:color .5s;
+}
+.appr-index:hover .appr-index-num{color:var(--line);}
+.appr-list{padding:var(--sp-2x) var(--sp-l);display:flex;flex-direction:column;}
+.principle{
+  border-top:1px solid var(--line);padding:var(--sp-l) 0;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .6s,transform .6s cubic-bezier(.16,1,.3,1);
+}
+.principle:last-child{border-bottom:1px solid var(--line);}
+.principle.visible{opacity:1;transform:translateY(0);}
+.principle.exit{opacity:0;transform:translateY(-12px);}
+.principle:nth-child(2){transition-delay:.1s;}
+.principle:nth-child(3){transition-delay:.2s;}
+.p-num{font-size:.56rem;letter-spacing:.14em;color:var(--dim);margin-bottom:.4rem;}
+.p-title{font-size:clamp(1rem,2vw,1.15rem);font-weight:700;letter-spacing:-.01em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem;}
+.p-text{font-size:.72rem;color:var(--dim);line-height:1.85;max-width:380px;}
+
+/* ── STATEMENT ── */
+.statement{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.stmt-left{
+  padding:var(--sp-2x) var(--sp-l);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-2x);
+}
+.stmt-label{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}
+.stmt-text{
+  font-size:clamp(1.4rem,2.8vw,2.6rem);font-weight:700;
+  letter-spacing:-.02em;line-height:1.1;text-transform:uppercase;color:var(--ink);
+}
+.stmt-right{padding:var(--sp-2x) var(--sp-l);display:flex;align-items:flex-end;}
+.stmt-body{font-size:.72rem;color:var(--dim);line-height:1.95;max-width:400px;}
+
+/* ── CONTACT FORM ── */
+.contact-block{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.contact-left{padding:var(--sp-2x) var(--sp-l);border-right:1px solid var(--line);}
+.contact-lbl{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:var(--sp-l);}
+.contact-heading{
+  font-size:clamp(1.4rem,3vw,3rem);font-weight:700;
+  letter-spacing:-.02em;text-transform:uppercase;color:var(--ink);
+  line-height:1.05;margin-bottom:var(--sp-m);
+}
+.contact-note{font-size:.72rem;color:var(--dim);line-height:1.85;}
+.contact-right{padding:var(--sp-2x) var(--sp-l);display:flex;flex-direction:column;justify-content:center;}
+
+/* Form */
+.cf{display:flex;flex-direction:column;gap:var(--sp-m);}
+.cf-field{display:flex;flex-direction:column;gap:.4rem;}
+.cf-field label{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);}
+.cf-field input,
+.cf-field textarea{
+  background:transparent;border:none;border-bottom:1px solid var(--line);
+  padding:.6rem 0;font-family:var(--sans);font-size:.8rem;color:var(--ink);
+  outline:none;transition:border-color .2s;resize:none;
+  -webkit-appearance:none;border-radius:0;
+}
+.cf-field input:focus,
+.cf-field textarea:focus{border-bottom-color:var(--ink);}
+.cf-field input::placeholder,
+.cf-field textarea::placeholder{color:var(--muted);}
+.cf-field textarea{min-height:100px;}
+.cf-submit{
+  margin-top:var(--sp-s);align-self:flex-start;
+  background:var(--ink);color:var(--bg);
+  border:none;padding:.7rem 2rem;
+  font-family:var(--sans);font-size:.58rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s,color .2s;
+}
+.cf-submit:hover{background:var(--dim);}
+.cf-success{
+  display:none;font-size:.72rem;color:var(--dim);line-height:1.85;padding-top:var(--sp-s);
+}
+.contact-socials{display:flex;gap:var(--sp-m);margin-top:var(--sp-xl);flex-wrap:wrap;}
+.contact-socials a{
+  font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;transition:color .2s;
+}
+.contact-socials a:hover{color:var(--ink);}
+
+/* ── FOOTER ── */
+.site-footer{
+  padding:var(--sp-s) var(--sp-l);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--sp-s);
+}
+.f-l,.f-r{font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+/* ── SCROLL ANIMATIONS ── */
+/* Generic — used by statement, contact */
+.sa{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+}
+.sa.visible{opacity:1;transform:translateY(0);}
+.sa.exit{opacity:0;transform:translateY(-18px);}
+.sa-d1{transition-delay:.12s;}
+
+/* ── PROJECT PAGES ── */
+.project-page{display:none;}
+.project-page.active{display:block;}
+.main-content.hidden{display:none;}
+
+.pp-hero{
+  min-height:92vh;padding-top:var(--nav-h);
+  display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);
+}
+.pp-l{
+  padding:var(--sp-2x) var(--sp-l) var(--sp-xl);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:var(--sp-s);
+}
+.pp-r{
+  padding:var(--sp-2x) var(--sp-l) var(--sp-xl);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:var(--sp-m);
+}
+.pp-cat{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:auto;}
+.pp-yr{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:auto;}
+.pp-title{
+  font-size:clamp(2rem,5.5vw,5.5rem);font-weight:700;
+  letter-spacing:-.035em;line-height:.9;text-transform:uppercase;color:var(--ink);
+}
+.pp-idea{font-size:.8rem;color:var(--dim);line-height:1.7;}
+.pp-concept{font-size:.72rem;color:var(--dim);line-height:1.95;}
+
+.pp-img-full{
+  width:100%;aspect-ratio:16/9;border-bottom:1px solid var(--line);
+  overflow:hidden;position:relative;background:var(--bg3);
+}
+.pp-img-full img{width:100%;height:100%;object-fit:cover;display:block;}
+.pp-img-full .ph,.pp-img-half .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.pp-img-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.pp-img-half{
+  aspect-ratio:3/2;border-right:1px solid var(--line);
+  overflow:hidden;position:relative;background:var(--bg3);
+}
+.pp-img-half:last-child{border-right:none;}
+.pp-img-half img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.pp-cap{
+  padding:var(--sp-s) var(--sp-l);border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--sp-s);
+}
+.pp-cpt{font-size:.56rem;letter-spacing:.1em;color:var(--dim);}
+
+/* Project 2 & 3 & 4 specific grids — keep border colours updated */
+.font-hero-img{width:100%;aspect-ratio:2/3;overflow:hidden;border-bottom:1px solid var(--line);}
+.font-hero-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.font-grid-3{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);}
+.font-grid-3 .fg-cell{aspect-ratio:2/3;overflow:hidden;border-right:1px solid var(--line);}
+.font-grid-3 .fg-cell:last-child{border-right:none;}
+.font-grid-3 .fg-cell img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.font-grid-3 .fg-cell:hover img{transform:scale(1.03);}
+.font-grid-4{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
+.font-grid-4 .fg-cell{aspect-ratio:2/3;overflow:hidden;border-right:1px solid var(--line);}
+.font-grid-4 .fg-cell:last-child{border-right:none;}
+.font-grid-4 .fg-cell img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.font-grid-4 .fg-cell:hover img{transform:scale(1.03);}
+.font-grid-2{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.font-grid-2 .fg-cell{aspect-ratio:3/4;overflow:hidden;border-right:1px solid var(--line);}
+.font-grid-2 .fg-cell:last-child{border-right:none;}
+.font-grid-2 .fg-cell img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.font-grid-2 .fg-cell:hover img{transform:scale(1.03);}
+
+.vinyl-hero{width:100%;aspect-ratio:1/1;overflow:hidden;border-bottom:1px solid var(--line);background:var(--bg3);}
+.vinyl-hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.vinyl-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.vinyl-grid .vg-cell{aspect-ratio:1/1;overflow:hidden;border-right:1px solid var(--line);background:var(--bg3);}
+.vinyl-grid .vg-cell:last-child{border-right:none;}
+.vinyl-grid .vg-cell img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.vinyl-grid .vg-cell:hover img{transform:scale(1.03);}
+
+.merch-hero{width:100%;aspect-ratio:3/4;overflow:hidden;border-bottom:1px solid var(--line);background:var(--bg3);}
+.merch-hero img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.merch-grid-2{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+.merch-grid-2 .mg-cell{aspect-ratio:3/4;overflow:hidden;border-right:1px solid var(--line);background:var(--bg3);}
+.merch-grid-2 .mg-cell:last-child{border-right:none;}
+.merch-grid-2 .mg-cell img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.merch-grid-2 .mg-cell:hover img{transform:scale(1.03);}
+
+/* ── TABLET ── */
+@media(max-width:1024px){
+  :root{--sp-l:1.5rem;--sp-2x:3.5rem;}
+  .tb-status{display:none;}
+  .tb-links{display:none;}
+  .tb-hamburger{display:flex;}
+  .hero-bottom{grid-template-columns:1fr 1fr;}
+  .big-section-meta{display:none;}
+  .big-section-single-word{font-size:clamp(1.8rem,7vw,4rem);}
+  .project-row{grid-template-columns:1fr;}
+  .pr-preview{display:none;}
+  .pr-main{border-right:none;}
+  .approach-block{grid-template-columns:1fr;}
+  .appr-index{border-right:none;border-bottom:1px solid var(--line);flex-direction:row;align-items:center;justify-content:space-between;padding:var(--sp-l);}
+  .appr-index-num{font-size:clamp(4rem,12vw,8rem);}
+  .statement{grid-template-columns:1fr;}
+  .stmt-left{border-right:none;border-bottom:1px solid var(--line);gap:var(--sp-l);}
+  .contact-block{grid-template-columns:1fr;}
+  .contact-left{border-right:none;border-bottom:1px solid var(--line);}
+  .pp-hero{grid-template-columns:1fr;min-height:auto;}
+  .pp-l{border-right:none;border-bottom:1px solid var(--line);padding:var(--sp-2x) var(--sp-l) var(--sp-l);}
+  .pp-r{padding:var(--sp-l) var(--sp-l) var(--sp-xl);}
+  .font-grid-4{grid-template-columns:repeat(2,1fr);}
+  .font-grid-4 .fg-cell:nth-child(2){border-right:none;}
+  .font-grid-4 .fg-cell:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line);}
+  .font-grid-4 .fg-cell:nth-child(4){border-top:1px solid var(--line);}
+  .font-grid-3{grid-template-columns:repeat(2,1fr);}
+  .font-grid-3 .fg-cell:nth-child(2){border-right:none;}
+  .font-grid-3 .fg-cell:nth-child(3){grid-column:1/-1;border-right:none;border-top:1px solid var(--line);aspect-ratio:3/2;}
+}
+
+/* ── PHONE ── */
+@media(max-width:600px){
+  :root{--sp-l:1.1rem;--sp-xl:2rem;--sp-2x:2.8rem;--nav-h:2.8rem;}
+  .hero-label:last-child{display:none;}
+  .hero-big h1{font-size:clamp(2.2rem,12vw,4rem);white-space:normal;}
+  .hero-bottom{grid-template-columns:1fr;}
+  .hero-bl{border-right:none;border-bottom:1px solid var(--line);}
+  .hero-br{justify-content:flex-start;padding-top:var(--sp-s);}
+  .big-section{padding:.6rem var(--sp-l);}
+  .big-section-single{padding:.6rem var(--sp-l);}
+  .big-section-word{font-size:clamp(1.6rem,10vw,3rem);}
+  .big-section-single-word{font-size:clamp(1.6rem,10vw,3rem);}
+  .pr-main{padding:var(--sp-l);}
+  .pr-title{font-size:clamp(1.4rem,7vw,2rem);}
+  .appr-list{padding:var(--sp-l);}
+  .appr-index{padding:var(--sp-l);}
+  .appr-index-num{font-size:clamp(3.5rem,18vw,6rem);}
+  .stmt-left{padding:var(--sp-xl) var(--sp-l);gap:var(--sp-m);}
+  .stmt-right{padding:var(--sp-xl) var(--sp-l);}
+  .stmt-text{font-size:clamp(1.2rem,6vw,1.8rem);}
+  .contact-left,.contact-right{padding:var(--sp-xl) var(--sp-l);}
+  .pp-title{font-size:clamp(1.8rem,10vw,3rem);}
+  .pp-img-grid{grid-template-columns:1fr;}
+  .pp-img-half{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3;}
+  .pp-cap{padding:var(--sp-s) var(--sp-l);}
+  .font-grid-3,.font-grid-4,.font-grid-2{grid-template-columns:1fr;}
+  .font-grid-3 .fg-cell,.font-grid-4 .fg-cell,.font-grid-2 .fg-cell{border-right:none !important;aspect-ratio:3/4;}
+  .font-grid-3 .fg-cell:not(:first-child),.font-grid-4 .fg-cell:not(:first-child),.font-grid-2 .fg-cell:not(:first-child){border-top:1px solid var(--line);}
+  .font-hero-img{aspect-ratio:3/4;}
+  .vinyl-grid{grid-template-columns:1fr;}
+  .vinyl-grid .vg-cell{border-right:none;border-bottom:1px solid var(--line);}
+  .merch-grid-2{grid-template-columns:1fr;}
+  .merch-grid-2 .mg-cell{border-right:none;border-bottom:1px solid var(--line);}
+  .site-footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="top-bar" id="top-bar">
+  <a class="tb-name" href="#" onclick="showHome();return false;">MB</a>
+  <ul class="tb-links" id="tb-links">
+    <li><a href="#work" onclick="closeDrawer()">Work</a></li>
+    <li><a href="#approach" onclick="closeDrawer()">Approach</a></li>
+    <li><a href="#contact" onclick="closeDrawer()">Contact</a></li>
+  </ul>
+  <button class="tb-hamburger" id="hamburger" aria-label="Menu" onclick="toggleDrawer()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="tb-status">London — Available</div>
+</header>
+
+<nav class="tb-drawer" id="tb-drawer">
+  <a href="#work" onclick="closeDrawer()">Work</a>
+  <a href="#approach" onclick="closeDrawer()">Approach</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+</nav>
+
+<header class="proj-bar" id="proj-bar">
+  <button class="back-btn" onclick="showHome()">Back</button>
+  <span class="proj-bar-title" id="proj-bar-title"></span>
+  <span style="width:48px;flex-shrink:0;"></span>
+</header>
+
+<!-- MAIN -->
+<div class="main-content" id="main-content">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-top">
+      <span class="hero-label">Portfolio — 2024</span>
+      <span class="hero-label">Designer</span>
+    </div>
+    <div class="hero-big">
+      <h1><span class="line"><em>MICHELE BAGNOD</em></span></h1>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-bl">
+        Working at the intersection of identity, spatial order and visual communication. Each project begins with subtraction — until what remains is precise, honest, and necessary.
+      </div>
+      <div class="hero-br">
+        <div class="scroll-hint">
+          <div class="scroll-dash" id="sdash"></div>
+          <span>Scroll</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-inner">
+      <span>Identity</span><span class="sep">/</span>
+      <span>Illustration</span><span class="sep">/</span>
+      <span>Textile Design</span><span class="sep">/</span>
+      <span>Record Artwork</span><span class="sep">/</span>
+      <span>Apparel</span><span class="sep">/</span>
+      <span>Michele Bagnod</span><span class="sep">/</span>
+      <span>Identity</span><span class="sep">/</span>
+      <span>Illustration</span><span class="sep">/</span>
+      <span>Textile Design</span><span class="sep">/</span>
+      <span>Record Artwork</span><span class="sep">/</span>
+      <span>Apparel</span><span class="sep">/</span>
+      <span>Michele Bagnod</span><span class="sep">/</span>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="big-section-single" id="work">
+    <div class="big-section-single-word"><span>PROJECTS</span></div>
+    <span class="big-section-meta">2016–2024</span>
+  </div>
+
+  <!-- Project 1 -->
+  <a class="project-row" onclick="showProject(1);return false;" href="#" data-index="0">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">LSE Catering</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Identity / System</span>
+        <span class="pr-yr">2024</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-1/Posters_wall.webp" alt="LSE Catering preview">
+      <span class="pr-num-overlay">01</span>
+    </div>
+  </a>
+
+  <!-- Project 2 -->
+  <a class="project-row" onclick="showProject(2);return false;" href="#" data-index="1">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">FONT — Marine &amp; Botanical Systems</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Textile / Collection</span>
+        <span class="pr-yr">Italy</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-2/RIK09786.jpg" alt="FONT collection preview">
+      <span class="pr-num-overlay">02</span>
+    </div>
+  </a>
+
+  <!-- Project 3 — Estate Photography -->
+  <a class="project-row" onclick="showProject(3);return false;" href="#" data-index="2">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">Estate Photography — London Interiors</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Photography / Interiors</span>
+        <span class="pr-yr">London</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-3b/12_FLOOR_FLAT_B-133.jpg" alt="Flat B estate photography preview">
+      <span class="pr-num-overlay">03</span>
+    </div>
+  </a>
+
+  <!-- Project 4 — Abana -->
+  <a class="project-row" onclick="showProject(4);return false;" href="#" data-index="3">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">Abana — Sativa Jazz</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Record Artwork / Illustration</span>
+        <span class="pr-yr">London</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-3/Vinyl_Record_MOCKUP_COVER.jpg" alt="Abana Sativa Jazz preview">
+      <span class="pr-num-overlay">04</span>
+    </div>
+  </a>
+
+  <!-- Project 5 — Ivreatronic -->
+  <a class="project-row" onclick="showProject(5);return false;" href="#" data-index="4">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">Ivreatronic — Merch Collection</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Artwork / Apparel</span>
+        <span class="pr-yr">Ivrea, Italy</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-06.jpg" alt="Ivreatronic preview">
+      <span class="pr-num-overlay">05</span>
+    </div>
+  </a>
+
+  <!-- Project 6 — Spatial Design -->
+  <a class="project-row" onclick="showProject(6);return false;" href="#" data-index="5">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">Spatial Design — Interior Renovation</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Spatial Design / 3D Visualisation</span>
+        <span class="pr-yr">Italy</span>
+      </div>
+    </div>
+    <div class="pr-preview">
+      <img src="images/project-6/KITCHEN_AFTER_07.png" alt="Spatial design interior renovation preview">
+      <span class="pr-num-overlay">06</span>
+    </div>
+  </a>
+
+  <!-- Project 7 — Animated Video -->
+  <a class="project-row" onclick="showProject(7);return false;" href="#" data-index="6">
+    <div class="pr-main">
+      <div class="pr-title-row">
+        <h2 class="pr-title">Your Playground is the Sun — Animated Video</h2>
+        <span class="pr-arrow">↗</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-cat">Animation / Direction</span>
+        <span class="pr-yr">2016</span>
+      </div>
+    </div>
+    <div class="pr-preview" style="background:#0f0f0f;overflow:hidden;">
+      <img src="https://img.youtube.com/vi/EvGY2yTcZDY/maxresdefault.jpg"
+           alt="Your Playground is the Sun — animated video"
+           style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.85;">
+      <span class="pr-num-overlay">07</span>
+    </div>
+  </a>
+
+  <!-- MY APPROACH -->
+  <div class="big-section">
+    <div class="big-section-word"><span>MY</span></div>
+    <span class="big-section-meta">Principles</span>
+    <div class="big-section-word right"><span>APPROACH</span></div>
+  </div>
+
+  <div class="approach-block" id="approach">
+    <div class="appr-index">
+      <span class="appr-index-label">Principles</span>
+      <div class="appr-index-num">3</div>
+    </div>
+    <div class="appr-list">
+      <div class="principle">
+        <div class="p-num">01 — Reduction as method</div>
+        <div class="p-title">Begin by removing</div>
+        <p class="p-text">Every project starts with subtraction. The work finds its form by removing everything unnecessary — until what remains is precise and honest.</p>
+      </div>
+      <div class="principle">
+        <div class="p-num">02 — Structure before surface</div>
+        <div class="p-title">Grid first</div>
+        <p class="p-text">Visual decisions follow structural ones. A clear grid, considered hierarchy and coherent rhythm come before any question of style or decoration.</p>
+      </div>
+      <div class="principle">
+        <div class="p-num">03 — Work that holds time</div>
+        <div class="p-title">Against trend</div>
+        <p class="p-text">The aim is work that does not age — not because it avoids the present, but because it is rooted in something more durable than fashion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATEMENT -->
+  <section class="statement">
+    <div class="stmt-left sa">
+      <span class="stmt-label">How I work</span>
+      <p class="stmt-text">I work slowly<br>and with<br>full attention.</p>
+    </div>
+    <div class="stmt-right sa sa-d1">
+      <p class="stmt-body">
+        Based in London. Available for projects that require sustained thinking — identity systems, editorial design, exhibition graphics, environmental typography.<br><br>
+        I work directly with clients, without intermediaries. Conversations begin with listening. Each project receives the time it demands — no more, no fewer revisions than the work requires.<br><br>
+        I do not take on more than I can properly attend to.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-block" id="contact">
+    <div class="contact-left sa">
+      <div class="contact-lbl">Contact</div>
+      <p class="contact-heading">Start a<br>conversation.</p>
+      <p class="contact-note">
+        For new projects, collaborations, or simply a conversation about work. I respond within two working days.
+      </p>
+      <div class="contact-socials">
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Are.na</a>
+      </div>
+    </div>
+    <div class="contact-right sa sa-d1">
+      <form class="cf" id="contact-form" onsubmit="submitForm(event)">
+        <div class="cf-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="cf-field">
+          <label for="cf-subject">Subject</label>
+          <input type="text" id="cf-subject" name="subject" placeholder="Project type or topic">
+        </div>
+        <div class="cf-field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" placeholder="Tell me about your project…" required></textarea>
+        </div>
+        <button type="submit" class="cf-submit">Send message</button>
+        <p class="cf-success" id="cf-success">Thank you — I'll be in touch within two working days.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span class="f-l">Michele Bagnod — Design Studio</span>
+    <span class="f-r">London — © 2024</span>
+  </footer>
+
+</div><!-- /main-content -->
+
+<!-- ══ PROJECT 1: LSE CATERING ══ -->
+<div class="project-page" id="project-1">
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Identity / System — 2024</div>
+      <h1 class="pp-title">LSE<br>CATERING</h1>
+      <p class="pp-idea">A visual system developed for LSE Catering, addressing the need for clarity across a complex and high-density environment.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 01 / 07</div>
+      <p class="pp-concept">
+        The project focuses on communication under pressure — menus, signage, and information that must be immediately understood, often in transitional spaces. The approach begins with structure: a consistent grid, clear typographic hierarchy, and a reduced set of visual elements.<br><br>
+        Rather than introducing a new visual language, the system works through refinement. Existing elements are reorganised and simplified, allowing information to emerge with greater clarity and consistency.<br><br>
+        Typography becomes the primary tool. Scale, spacing and alignment are used to guide reading behaviour, reducing friction in moments of decision — queuing, ordering, moving through space.<br><br>
+        The system is designed to extend across formats: printed menus, digital displays, and environmental signage. Each application follows the same underlying logic, ensuring continuity without repetition. The result is a quieter form of identity — one that operates through use rather than visibility.
+      </p>
+    </div>
+  </section>
+  <div class="pp-img-full">
+    <img src="images/project-1/Posters_wall.webp" alt="LSE Catering — poster system, full wall installation">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Poster system — environmental installation, Bankside House Restaurant</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+  <div class="pp-img-grid">
+    <div class="pp-img-half">
+      <img src="images/project-1/Poster_chef.webp" alt="LSE Catering — Bankside House Restaurant poster">
+    </div>
+    <div class="pp-img-half">
+      <img src="images/project-1/Poster_don_t_waste_food.webp" alt="LSE Catering — Don't Waste Food poster">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Bankside House Restaurant poster / Don't Waste Food campaign</span>
+    <span class="pp-cpt">Fig. 02–03</span>
+  </div>
+</div>
+
+<!-- ══ PROJECT 2: FONT ══ -->
+<div class="project-page" id="project-2">
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Textile / Collection — Italy</div>
+      <h1 class="pp-title">FONT<br>MARINE &amp;<br>BOTANICAL</h1>
+      <p class="pp-idea">A textile study that codifies the organic irregularities of the sea and shoreline into a precise visual identity.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 02 / 07</div>
+      <p class="pp-concept">
+        The collection functions as a translation of movement. The brief required a system that captures the life of the sea without falling into literal representation. The response was to develop a series of high-contrast motifs that mimic the ebb and flow of tides and the rhythmic structure of coral and flora.<br><br>
+        Rather than static prints, the designs are engineered to interact with the garment's architecture. Sinuous, wave-like lines (Teal/Black) and explosive botanical forms (Red/White) are scaled to accentuate the body's motion, ensuring the pattern's logic remains intact from the tension of swimwear to the fluid drape of the maxi-silhouette.<br><br>
+        The palette — chromatic teals, deep corals, and stark monochromes — is used as a navigational tool to distinguish between the various depths of the collection. The result is a refined textile language where nature is not just a motif, but a functional framework for the design.
+      </p>
+    </div>
+  </section>
+  <div class="font-hero-img">
+    <img src="images/project-2/RIK09786.jpg" alt="FONT — teal wave one-shoulder maxi">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Teal / Black — wave silhouette, maxi drape</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+  <div class="font-grid-3">
+    <div class="fg-cell"><img src="images/project-2/RIK09877.jpg" alt="FONT — teal halter jumpsuit"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00022.jpg" alt="FONT — black/white botanical maxi"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00048.jpg" alt="FONT — teal botanical seated"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Teal/Black — halter jumpsuit / Black-White botanical / Botanical seated</span>
+    <span class="pp-cpt">Fig. 02–04</span>
+  </div>
+  <div class="font-grid-2">
+    <div class="fg-cell"><img src="images/project-2/RIK00553.jpg" alt="FONT — red/white botanical maxi cutout"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00854.jpg" alt="FONT — black/white botanical kaftan belted"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Red / White — botanical maxi, cutout detail / Black-White — botanical kaftan belted</span>
+    <span class="pp-cpt">Fig. 05–06</span>
+  </div>
+  <div class="font-grid-4">
+    <div class="fg-cell"><img src="images/project-2/RIK00179.jpg" alt="FONT — black/white kaftan botanical red flower"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00279.jpg" alt="FONT — pink/red wave maxi"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00329.jpg" alt="FONT — pink/red wave one-shoulder jumpsuit"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00400.jpg" alt="FONT — red/pink botanical kaftan"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Red / White botanical — Coral / Pink wave — One-shoulder wave jumpsuit — Botanical kaftan</span>
+    <span class="pp-cpt">Fig. 07–10</span>
+  </div>
+  <div class="font-grid-2">
+    <div class="fg-cell"><img src="images/project-2/RIK09737.jpg" alt="FONT — pink/red swimsuit with hat"></div>
+    <div class="fg-cell"><img src="images/project-2/RIK00768.jpg" alt="FONT — black/pink wave skirt maxi"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Swimwear — tidal wave motif / Black — wave maxi skirt</span>
+    <span class="pp-cpt">Fig. 11–12</span>
+  </div>
+</div>
+
+<!-- ══ PROJECT 3: ESTATE PHOTOGRAPHY — FLAT B ══ -->
+<div class="project-page" id="project-3">
+
+  <style>
+    /* Landscape 3:2 full-width hero */
+    .ep-hero-img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg3);
+    }
+    .ep-hero-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      display: block;
+    }
+    /* 2-col landscape grid */
+    .ep-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .ep-grid-2 .ep-cell {
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background: var(--bg3);
+    }
+    .ep-grid-2 .ep-cell:last-child { border-right: none; }
+    .ep-grid-2 .ep-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      display: block;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .ep-grid-2 .ep-cell:hover img { transform: scale(1.03); }
+    /* Tall portrait slot (clock image) */
+    .ep-grid-portrait {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .ep-grid-portrait .ep-cell-tall {
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background: var(--bg3);
+    }
+    .ep-grid-portrait .ep-cell-tall img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .ep-grid-portrait .ep-cell-tall:hover img { transform: scale(1.03); }
+    .ep-grid-portrait .ep-cell-wide {
+      overflow: hidden;
+      background: var(--bg3);
+    }
+    .ep-grid-portrait .ep-cell-wide img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .ep-grid-portrait .ep-cell-wide:hover img { transform: scale(1.03); }
+    @media (max-width: 600px) {
+      .ep-grid-2 { grid-template-columns: 1fr; }
+      .ep-grid-2 .ep-cell { border-right: none; border-bottom: 1px solid var(--line); }
+      .ep-grid-portrait { grid-template-columns: 1fr; }
+      .ep-grid-portrait .ep-cell-tall { border-right: none; border-bottom: 1px solid var(--line); aspect-ratio: 3/2; }
+    }
+  </style>
+
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Photography / Interiors — London</div>
+      <h1 class="pp-title">ESTATE<br>PHOTOGRAPHY</h1>
+      <p class="pp-idea">Architectural and interior photography for residential spaces in London — capturing the tension between raw structure and considered domestic life.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 03 / 07</div>
+      <p class="pp-concept">
+        Estate photography occupies a particular and underrated position in visual communication. It is not simply documentation. At its best, it is an argument — a case made in light, angle and moment for why a space deserves to be inhabited by the person looking at it.<br><br>
+        This commission was for a converted Victorian warehouse apartment in London. The space is defined by its contradictions: exposed brick walls and steel I-beams sit alongside glass mezzanine balustrades and oak floors. The double-height living volume — with its original porthole window overlooking the Thames — demanded to be understood spatially, not just decoratively.<br><br>
+        The photography works through patience and available light. No staging beyond the existing furniture, no artificial light sources. Each frame is chosen for its ability to communicate volume and materiality simultaneously — the way light breaks across brick, the relationship between a desk and a circular window, the view of St Paul's Cathedral that catches you without warning.<br><br>
+        This is photography as a service that translates space into image — and into decision.
+      </p>
+    </div>
+  </section>
+
+  <!-- Fig. 01 — Full double-height living room overview -->
+  <div class="ep-hero-img">
+    <img src="images/project-3b/12_FLOOR_FLAT_B-133.jpg"
+         alt="Flat B — double-height living room with mezzanine, exposed brick and glass balustrade">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Living room — double-height volume, brick and steel structure</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+
+  <!-- Fig. 02–03 — Living room facing fireplace / Study desk with porthole -->
+  <div class="ep-grid-2">
+    <div class="ep-cell">
+      <img src="images/project-3b/12_FLOOR_FLAT_B-142.jpg"
+           alt="Flat B — living room, fireplace and bookshelves">
+    </div>
+    <div class="ep-cell">
+      <img src="images/project-3b/12_FLOOR_FLAT_B-115.jpg"
+           alt="Flat B — study desk with porthole window overlooking Thames">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Living room — fireplace elevation / Study — porthole window and desk</span>
+    <span class="pp-cpt">Fig. 02–03</span>
+  </div>
+
+  <!-- Fig. 04–05 — Dining room / Bedroom -->
+  <div class="ep-grid-2">
+    <div class="ep-cell">
+      <img src="images/project-3b/FLAT_B-55.JPG"
+           alt="Flat B — dining room with brass chandelier and mid-century table">
+    </div>
+    <div class="ep-cell">
+      <img src="images/project-3b/FLAT_B-25.JPG"
+           alt="Flat B — bedroom with navy feature wall and gold accents">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Dining room — brass chandelier / Bedroom — navy and gold palette</span>
+    <span class="pp-cpt">Fig. 04–05</span>
+  </div>
+
+  <!-- Fig. 06–07 — Clock detail / St Paul's view from upper level -->
+  <div class="ep-grid-portrait">
+    <div class="ep-cell-tall">
+      <img src="images/project-3b/FLAT_B.JPG"
+           alt="Flat B — detail, wall clock in natural light">
+    </div>
+    <div class="ep-cell-wide">
+      <img src="images/project-3b/12_FLOOR_FLAT_B-095.jpg"
+           alt="Flat B — upper level with panoramic view of St Paul's Cathedral and London skyline">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Detail — wall clock, natural light / Upper level — St Paul's Cathedral and London skyline</span>
+    <span class="pp-cpt">Fig. 06–07</span>
+  </div>
+
+</div>
+
+<!-- ══ PROJECT 4: ABANA ══ -->
+<div class="project-page" id="project-4">
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Record Artwork / Illustration — London</div>
+      <h1 class="pp-title">ABANA<br>SATIVA<br>JAZZ</h1>
+      <p class="pp-idea">Cover artwork for London-based DJ Abana — a hand-drawn visual world where jazz, smoke and flat colour collide into a single irreverent image.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 04 / 07</div>
+      <p class="pp-concept">
+        The brief was open: make something that feels like the record sounds. Abana's music sits at the intersection of jazz structure and loose, hazy energy — the kind of session that starts late and ends at dawn. The illustration had to hold that duality without explaining it.<br><br>
+        The approach was deliberately naïve in technique but precise in composition. A single character — blocky, flat, expressionless — anchors both the front and back covers. On the front he plays, swallowed by his own instrument and the smoke that rises from it. On the back he turns away, the party over, the story told without words.<br><br>
+        The palette is restricted to five colours: a deep cobalt blue, terra cotta, leaf green, mustard yellow and black on white. No gradients, no texture, no digital polish. The hand-drawn line is the only tool. Typography follows the same logic — loose, curved letterforms that feel drawn rather than set.<br><br>
+        Catalogue reference BAS002. Artwork by Michele Bagnod. Written and produced by Sahil Dhingra. Mastered by Andreas Henneberg.
+      </p>
+    </div>
+  </section>
+  <div class="vinyl-hero">
+    <img src="images/project-3/Vinyl_Record_MOCKUP_COVER.jpg" alt="Abana — Sativa Jazz, vinyl front cover mockup">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Front cover — Sativa Jazz, BAS002</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+  <div class="vinyl-grid">
+    <div class="vg-cell"><img src="images/project-3/Vinyl_Record_MOCKUP_COVER.jpg" alt="Abana — Sativa Jazz front cover detail"></div>
+    <div class="vg-cell"><img src="images/project-3/Vinyl_Record_MOCKUP_BACK_COVER.jpg" alt="Abana — Sativa Jazz back cover detail"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Front cover / Back cover — full vinyl package</span>
+    <span class="pp-cpt">Fig. 02–03</span>
+  </div>
+</div>
+
+<!-- ══ PROJECT 4: IVREATRONIC ══ -->
+<div class="project-page" id="project-5">
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Artwork / Apparel — Ivrea, Italy</div>
+      <h1 class="pp-title">IVREATRONIC</h1>
+      <p class="pp-idea">Merch artwork for an independent record label rooted in Ivrea — the castle and the wilderness of the town compressed into a single gradient vision.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 05 / 07</div>
+      <p class="pp-concept">
+        Ivreatronic is an independent electronic music label born out of Ivrea, a small industrial city in the Piedmont region of northern Italy — best known for its medieval castle and the dense forests and hills that surround it. The brief asked for something fresh: not a historical reference, not a postcard, but something that felt like the music itself.<br><br>
+        The artwork is built around two elements that define the town's physical reality: the castle, which rises above the skyline as the city's oldest symbol, and the wild, overgrown nature that presses in on all sides — foliage, branches, and the kind of vegetation that feels older than anything built around it. Both are rendered in silhouette, stripped of detail, and placed into a single compressed scene that reads like a fragment of a dream or a moment between day and night.<br><br>
+        The gradient — running from a saturated hot magenta at the top through cobalt blue to a deeper twilight at the base — gives the image its energy. It references the visual language of rave-era graphics and synth-wave aesthetics without copying either directly. The result sits somewhere between poster art and digital illustration: bold enough to work on a black hoodie at scale, detailed enough to reward a closer look.<br><br>
+        Applied across a limited merch collection — oversized t-shirts, hoodies — with the logotype set in a custom chromatic treatment that mirrors the gradient of the artwork.
+      </p>
+    </div>
+  </section>
+  <div class="merch-hero">
+    <img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-06.jpg" alt="Ivreatronic — hoodie back, castle and nature artwork">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Hoodie — back print, castle &amp; nature artwork</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+  <div class="merch-grid-2">
+    <div class="mg-cell"><img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-05.jpg" alt="Ivreatronic — hoodie front, chest logotype"></div>
+    <div class="mg-cell"><img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-08.jpg" alt="Ivreatronic — t-shirt back, IVREATRONIC logotype"></div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Hoodie front — chest logotype / T-shirt back — logotype treatment</span>
+    <span class="pp-cpt">Fig. 02–03</span>
+  </div>
+  <div class="merch-hero">
+    <img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-07.jpg" alt="Ivreatronic — t-shirt front, full artwork">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">T-shirt front — full artwork panel applied</span>
+    <span class="pp-cpt">Fig. 04</span>
+  </div>
+</div>
+
+<script>
+/* ── HERO REVEAL ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.querySelectorAll('.hero-big h1 .line em').forEach(el=>el.classList.add('rev'));
+    document.getElementById('sdash')?.classList.add('rev');
+  },80);
+});
+
+/* ── BIDIRECTIONAL SCROLL OBSERVER ── */
+// Tracks which elements are visible and animates in/out based on scroll direction
+const allAnimated = [];
+let lastScrollY = window.scrollY;
+
+function classifyElements(){
+  // collect all animatable elements with their initial top position
+  document.querySelectorAll('.project-row, .principle, .sa').forEach(el=>{
+    allAnimated.push(el);
+  });
+}
+
+const scrollObs = new IntersectionObserver(entries=>{
+  const scrollingDown = window.scrollY >= lastScrollY;
+  entries.forEach(entry=>{
+    const el = entry.target;
+    if(entry.isIntersecting){
+      el.classList.remove('exit');
+      el.classList.add('visible');
+    } else {
+      // only apply exit animation when element leaves opposite direction
+      if(el.classList.contains('visible')){
+        el.classList.remove('visible');
+        el.classList.add('exit');
+        // remove exit class after animation so it can re-enter cleanly
+        setTimeout(()=>el.classList.remove('exit'),700);
+      }
+    }
+  });
+  lastScrollY = window.scrollY;
+},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+
+// Big section words
+const secObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.big-section-word span, .big-section-single-word span').forEach(s=>s.classList.add('rev'));
+    } else {
+      e.target.querySelectorAll('.big-section-word span, .big-section-single-word span').forEach(s=>s.classList.remove('rev'));
+    }
+  });
+},{threshold:0.15});
+
+window.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.project-row, .principle, .sa').forEach(el=>{
+    scrollObs.observe(el);
+  });
+  document.querySelectorAll('.big-section, .big-section-single').forEach(el=>secObs.observe(el));
+});
+
+/* ── CONTACT FORM ── */
+function submitForm(e){
+  e.preventDefault();
+  const form = document.getElementById('contact-form');
+  const data = new FormData(form);
+  // Build mailto as fallback — for real backend replace with fetch to API
+  const name    = data.get('name');
+  const email   = data.get('email');
+  const subject = data.get('subject') || 'New enquiry';
+  const message = data.get('message');
+  const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  // Send via mailto (works without backend; swap for fetch() when deploying with a form service)
+  window.location.href = `mailto:info@michelebagnod.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+  // Show success message
+  form.querySelectorAll('.cf-field, .cf-submit').forEach(el=>el.style.display='none');
+  document.getElementById('cf-success').style.display='block';
+}
+
+/* ── NAV ── */
+['work','approach','contact'].forEach(id=>{
+  document.querySelectorAll(`a[href="#${id}"]`).forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+      closeDrawer();
+    });
+  });
+});
+
+function toggleDrawer(){
+  const d=document.getElementById('tb-drawer');
+  const h=document.getElementById('hamburger');
+  const open=d.classList.toggle('open');
+  h.classList.toggle('open',open);
+}
+function closeDrawer(){
+  document.getElementById('tb-drawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+/* ── PROJECT NAVIGATION ── */
+const projTitles={
+  1:'LSE Catering',
+  2:'FONT — Marine & Botanical',
+  3:'Estate Photography',
+  4:'Abana — Sativa Jazz',
+  5:'Ivreatronic',
+  6:'Spatial Design',
+  7:'Your Playground is the Sun'
+};
+function showProject(n){
+  document.getElementById('main-content').classList.add('hidden');
+  document.getElementById('top-bar').style.display='none';
+  document.getElementById('tb-drawer').classList.remove('open');
+  document.getElementById('proj-bar').style.display='flex';
+  document.getElementById('proj-bar-title').textContent=projTitles[n];
+  document.querySelectorAll('.project-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('project-'+n).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.getElementById('main-content').classList.remove('hidden');
+  document.getElementById('top-bar').style.display='flex';
+  document.getElementById('proj-bar').style.display='none';
+  document.querySelectorAll('.project-page').forEach(p=>p.classList.remove('active'));
+  window.scrollTo(0,0);
+}
+</script>
+
+<!-- ══ PROJECT 6: SPATIAL DESIGN ══ -->
+<div class="project-page" id="project-6">
+
+  <style>
+    /* Before/after side by side — landscape */
+    .sd-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .sd-cell {
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background: var(--bg3);
+      position: relative;
+    }
+    .sd-cell:last-child { border-right: none; }
+    .sd-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .sd-cell:hover img { transform: scale(1.03); }
+    .sd-cell.landscape { aspect-ratio: 16 / 9; }
+    .sd-cell.landscape-sm { aspect-ratio: 3 / 2; }
+    /* Label badge on before images */
+    .sd-badge {
+      position: absolute; top: var(--sp-s); left: var(--sp-s);
+      font-size: .5rem; letter-spacing: .14em; text-transform: uppercase;
+      background: var(--ink); color: var(--bg);
+      padding: .25rem .6rem;
+      z-index: 2;
+    }
+    /* Full width rendering */
+    .sd-full {
+      width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; border-bottom: 1px solid var(--line);
+      background: var(--bg3);
+    }
+    .sd-full img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    @media (max-width: 600px) {
+      .sd-pair { grid-template-columns: 1fr; }
+      .sd-cell { border-right: none; border-bottom: 1px solid var(--line); aspect-ratio: 16/9 !important; }
+      .sd-cell:last-child { border-bottom: none; }
+    }
+  </style>
+
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Spatial Design / 3D Visualisation — Italy</div>
+      <h1 class="pp-title">SPATIAL<br>DESIGN</h1>
+      <p class="pp-idea">Interior renovation concept for a residential apartment — translating an existing space into a precise proposal through 3D visualisation.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 06 / 07</div>
+      <p class="pp-concept">
+        Spatial design begins before a single wall is touched. The challenge is not simply aesthetic — it is the problem of convincing a client, an owner, or a buyer that a space can be fundamentally different from what they are looking at. Visualisation is the tool that bridges that gap.<br><br>
+        This project involved the renovation proposal for a residential apartment in Italy. The existing space was a layered accumulation of decades of habit — good bones, but cluttered form and an unclear spatial logic. The commission was to reimagine the apartment as a coherent, contemporary living space without expanding its footprint.<br><br>
+        The proposal centralises a warm material palette around natural oak cabinetry, marble worktops and oak flooring — materials that unify kitchen, living and working areas into a single readable interior. A continuous low unit running the length of the main space doubles as kitchen island, sofa back, and writing desk, collapsing three programmes into one gesture.<br><br>
+        The 3D renderings are produced in warm, ambient light to communicate atmosphere as well as layout — the goal is not a technical drawing but a promise of what daily life in the space could feel like.
+      </p>
+    </div>
+  </section>
+
+  <!-- Fig. 01 — After: main living view (strongest render) -->
+  <div class="sd-full">
+    <img src="images/project-6/KITCHEN_AFTER_07.png"
+         alt="Spatial design — living and kitchen overview, after">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Living / kitchen — proposed layout, ambient render</span>
+    <span class="pp-cpt">Fig. 01</span>
+  </div>
+
+  <!-- Fig. 02–03 — Before / After: living room -->
+  <div class="sd-pair">
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">Before</span>
+      <img src="images/project-6/xxl-7.jpg"
+           alt="Spatial design — living room before renovation">
+    </div>
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">After</span>
+      <img src="images/project-6/KITCHEN_AFTER_05.png"
+           alt="Spatial design — living room after, proposed render">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Living room — existing condition / proposed render</span>
+    <span class="pp-cpt">Fig. 02–03</span>
+  </div>
+
+  <!-- Fig. 04–05 — Before / After: kitchen -->
+  <div class="sd-pair">
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">Before</span>
+      <img src="images/project-6/xxl-4.jpg"
+           alt="Spatial design — kitchen/hallway before">
+    </div>
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">After</span>
+      <img src="images/project-6/KITCHEN_AFTER_03.png"
+           alt="Spatial design — kitchen after, proposed render">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Kitchen — existing condition / proposed render</span>
+    <span class="pp-cpt">Fig. 04–05</span>
+  </div>
+
+  <!-- Fig. 06–07 — Before / After: hallway / overview -->
+  <div class="sd-pair">
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">Before</span>
+      <img src="images/project-6/xxl-3.jpg"
+           alt="Spatial design — hallway/room before">
+    </div>
+    <div class="sd-cell landscape-sm">
+      <span class="sd-badge">After</span>
+      <img src="images/project-6/KITCHEN_AFTER_06.png"
+           alt="Spatial design — overview render after">
+    </div>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Hallway — existing condition / Study and kitchen overview render</span>
+    <span class="pp-cpt">Fig. 06–07</span>
+  </div>
+
+  <!-- Fig. 08 — Before: living overview -->
+  <div class="sd-full">
+    <img src="images/project-6/xxl-10.jpg"
+         alt="Spatial design — original living room condition">
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Living room — existing condition, full view</span>
+    <span class="pp-cpt">Fig. 08</span>
+  </div>
+
+</div>
+<!-- ══ PROJECT 7: ANIMATED VIDEO — YOUR PLAYGROUND IS THE SUN ══ -->
+<div class="project-page" id="project-7">
+
+  <style>
+    /* Responsive YouTube embed — padding-bottom method, most compatible */
+    .yt-wrap {
+      width: 100%;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: #000;
+    }
+    .yt-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    /* Credits row */
+    .credits-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .credit-item {
+      padding: var(--sp-l) var(--sp-l);
+      border-right: 1px solid var(--line);
+    }
+    .credit-item:last-child { border-right: none; }
+    .credit-label {
+      font-size: .54rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: .4rem;
+    }
+    .credit-value {
+      font-size: .82rem; font-weight: 700; color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    @media (max-width: 600px) {
+      .credits-row { grid-template-columns: 1fr; }
+      .credit-item { border-right: none; border-bottom: 1px solid var(--line); }
+      .credit-item:last-child { border-bottom: none; }
+    }
+  </style>
+
+  <section class="pp-hero">
+    <div class="pp-l">
+      <div class="pp-cat">Animation / Direction — 2016</div>
+      <h1 class="pp-title">YOUR<br>PLAYGROUND<br>IS THE SUN</h1>
+      <p class="pp-idea">Animated music video for Stefano Ritteri — story, drawing and editing by Michele Bagnod. Released on Congaloid.</p>
+    </div>
+    <div class="pp-r">
+      <div class="pp-yr">Project 07 / 07</div>
+      <p class="pp-concept">
+        Animation offers something that most visual disciplines do not: time. Not just to show a thing, but to let it move, transform and accumulate meaning in sequence. This project was a complete single-author commission — from the initial concept and storyboard through to hand-drawn frames and final edit.<br><br>
+        The brief from Stefano Ritteri was deliberately open. The track — warm, textured, deeply rhythmic — asked for something that felt handmade rather than produced. The response was an illustration-based animation drawn entirely by hand: a world of loose, organic mark-making that follows the music's own logic rather than trying to illustrate it literally.<br><br>
+        The visual language is built on a small number of recurring motifs that shift and transform across the duration of the video — figures, light, landscape — treated as elements of a system rather than a narrative. The editing rhythm mirrors the track's structure: expansive passages of slow movement punctuated by moments of dense visual energy.<br><br>
+        Released on Congaloid in December 2016. Story, drawing and editing by Michele Bagnod.
+      </p>
+    </div>
+  </section>
+
+  <!-- Embedded YouTube player -->
+  <div class="yt-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/EvGY2yTcZDY?rel=0&modestbranding=1"
+      title="Stefano Ritteri — Your Playground is the Sun (animated video by Michele Bagnod)"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+  <div class="pp-cap">
+    <span class="pp-cpt">Stefano Ritteri — Your Playground is the Sun</span>
+    <span class="pp-cpt">Congaloid, 2016</span>
+  </div>
+
+  <!-- Credits -->
+  <div class="credits-row">
+    <div class="credit-item">
+      <div class="credit-label">Music</div>
+      <div class="credit-value">Stefano Ritteri</div>
+    </div>
+    <div class="credit-item">
+      <div class="credit-label">Label</div>
+      <div class="credit-value">Congaloid</div>
+    </div>
+    <div class="credit-item">
+      <div class="credit-label">Video — Story, Drawing &amp; Edit</div>
+      <div class="credit-value">Michele Bagnod</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
