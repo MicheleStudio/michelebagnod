@@ -153,7 +153,6 @@ body{
   padding:1.2rem 2.5rem;border-right:1px solid var(--line);
   font-size:.86rem;color:var(--dim);line-height:1.8;
 }
-.proj-card-cat{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);}
 .about-text{font-size:clamp(1rem,1.8vw,1.4rem);color:var(--white);line-height:1.65;}
 .about-disc{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);padding:.5rem 0;border-bottom:1px solid var(--line);transition:color .2s;}
 .contact-note{font-size:.88rem;color:var(--dim);line-height:1.85;max-width:360px;}
@@ -162,31 +161,7 @@ body{
 .pp-cpt{font-size:.68rem;letter-spacing:.08em;color:var(--dim);}
 
 /* CSS arrow — modern: thin diagonal slash line */
-.proj-card-arrow{
-  position:absolute;top:1.4rem;right:1.6rem;
-  width:24px;height:24px;
-  opacity:0;transition:opacity .35s,transform .35s cubic-bezier(.16,1,.3,1);
-  pointer-events:none;
-}
-.proj-card-arrow::before{
-  content:'';
-  position:absolute;
-  bottom:0;left:0;
-  width:100%;height:1.5px;
-  background:var(--white);
-  transform:rotate(-45deg);
-  transform-origin:left bottom;
-}
-.proj-card-arrow::after{
-  content:'';
-  position:absolute;
-  top:0;right:0;
-  width:8px;height:8px;
-  border-top:1.5px solid var(--white);
-  border-right:1.5px solid var(--white);
-}
-.proj-card:hover .proj-card-arrow{opacity:1;transform:translate(4px,-4px);}
-.px-char{display:inline-block;}
+.proj-card:hover .px-char{display:inline-block;}
 @keyframes px-scramble{
   0%,100%{opacity:1;}
   25%{opacity:.1;transform:translateY(-2px);}
@@ -251,87 +226,92 @@ body{
   font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
 }
 
-/* Horizontal scroll track */
-.projects-track-wrap{
-  overflow-x:auto;overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  cursor:grab;
-}
-.projects-track-wrap:active{cursor:grabbing;}
-.projects-track-wrap::-webkit-scrollbar{display:none;}
-.projects-track{
+/* ── PROJECT ROW LIST ── */
+.projects-list{
   display:flex;
-  height:70vh;
-  min-height:400px;
+  flex-direction:column;
+}
+.pr-row{
+  display:grid;
+  grid-template-columns:1fr 240px;
+  border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit;
+  cursor:pointer;
+  background:var(--bg);
+  transition:background .25s;
+  min-height:140px;
+}
+.pr-row:hover{background:var(--bg2);}
+
+/* Left — text info */
+.pr-row-main{
+  padding:2rem 2.5rem;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  border-right:1px solid var(--line);
+  gap:1rem;
+}
+.pr-row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.pr-row-num{
+  font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);flex-shrink:0;padding-top:.2rem;
+}
+.pr-row-title{
+  font-size:clamp(1.4rem,3vw,2.8rem);font-weight:700;
+  letter-spacing:-.03em;line-height:.95;
+  text-transform:uppercase;color:var(--white);
+  flex:1;
+}
+.pr-row:hover .pr-row-title{color:var(--white);}
+.pr-row-meta{
+  display:flex;gap:2rem;flex-wrap:wrap;
+}
+.pr-row-cat,.pr-row-yr{
+  font-size:.56rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);
 }
 
-/* Each project card */
-.proj-card{
-  flex:0 0 auto;
-  width:min(520px, 80vw);
-  height:100%;
-  position:relative;
-  border-right:1px solid var(--line);
-  overflow:hidden;
-  cursor:pointer;
-  text-decoration:none;color:inherit;
-}
-.proj-card:first-child{border-left:none;}
-.proj-card-img{
-  position:absolute;inset:0;
+/* Right — square image preview */
+.pr-row-preview{
+  position:relative;overflow:hidden;
   background:var(--bg3);
+  aspect-ratio:1/1;
+  align-self:stretch;
 }
-.proj-card-img img{
+.pr-row-preview img{
+  position:absolute;inset:0;
   width:100%;height:100%;
   object-fit:cover;object-position:center;
   display:block;
-  transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s;
-  filter:brightness(.7);
   transform:scale(1.05);
+  transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s;
+  filter:brightness(.75);
 }
-.proj-card:hover .proj-card-img img{
+.pr-row:hover .pr-row-preview img{
   transform:scale(1);
-  filter:brightness(.55);
+  filter:brightness(.9);
 }
-.proj-card-info{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:2rem 1.8rem;
-  background:linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
-  transition:padding .4s cubic-bezier(.16,1,.3,1);
-}
-.proj-card:hover .proj-card-info{padding-bottom:2.5rem;}
-.proj-card-num{
-  font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);margin-bottom:.5rem;
-}
-.proj-card-name{
-  font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:700;
-  letter-spacing:-.02em;line-height:1.05;text-transform:uppercase;
-  color:var(--white);margin-bottom:.4rem;
-}
-.proj-card-cat{
-  font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.5);
-}
-.proj-card-arrow{
-  position:absolute;top:1.5rem;right:1.8rem;
-  font-size:1.1rem;color:rgba(255,255,255,0);
-  transition:color .3s,transform .3s;
-}
-.proj-card:hover .proj-card-arrow{color:var(--white);transform:translate(3px,-3px);}
 
-/* Scroll hint at end of track */
-.proj-card-hint{
-  flex:0 0 auto;width:180px;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:1rem;
-  border-right:none;padding:2rem;
+/* Arrow in top-right of image */
+.pr-row-arrow{
+  position:absolute;top:1rem;right:1rem;
+  width:20px;height:20px;
+  opacity:0;transition:opacity .3s,transform .3s;
+  z-index:2;
 }
-.proj-hint-text{
-  font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--dim);writing-mode:vertical-rl;
+.pr-row-arrow::before{
+  content:'';position:absolute;
+  bottom:0;left:0;width:100%;height:1.5px;
+  background:var(--white);
+  transform:rotate(-45deg);transform-origin:left bottom;
 }
+.pr-row-arrow::after{
+  content:'';position:absolute;
+  top:0;right:0;width:8px;height:8px;
+  border-top:1.5px solid var(--white);
+  border-right:1.5px solid var(--white);
+}
+.pr-row:hover .pr-row-arrow{opacity:1;transform:translate(3px,-3px);}
 
 /* ── ABOUT ── */
 .about-section{
@@ -607,7 +587,9 @@ body{
   .contact-left{border-right:none;border-bottom:1px solid var(--line);}
   .pp-hero{grid-template-columns:1fr;min-height:auto;}
   .pp-l{border-right:none;border-bottom:1px solid var(--line);}
-  .proj-card{width:min(420px,75vw);}
+  /* project rows — shrink preview on tablet */
+  .pr-row{grid-template-columns:1fr 180px;}
+  .pr-row-main{padding:1.5rem 1.5rem;}
   .font-grid-4{grid-template-columns:repeat(2,1fr);}
   .font-grid-4 .fg-cell:nth-child(2){border-right:none;}
   .font-grid-4 .fg-cell:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line);}
@@ -626,25 +608,46 @@ body{
 
 /* ── PHONE ── */
 @media(max-width:600px){
-  .hero-name{font-size:clamp(2rem,13vw,3.5rem);white-space:normal;text-align:center;}
+
+  /* Hero — name fits the screen */
+  .hero-labels{padding:1.2rem 1.2rem 0;}
+  .hero-name-wrap{padding:0 1.2rem;}
+  .hero-name{
+    font-size:clamp(2.8rem,17vw,5rem);
+    white-space:normal;
+    word-break:break-word;
+    text-align:center;
+    line-height:.88;
+    overflow:visible;
+  }
+  .hero-tagline{
+    font-size:clamp(.55rem,3.5vw,.75rem);
+    white-space:normal;
+    text-align:center;
+    margin-top:.7rem;
+  }
   .hero-bottom{grid-template-columns:1fr;}
-  .hero-bl{border-right:none;border-bottom:1px solid var(--line);}
-  .hero-br{justify-content:flex-start;}
-  .proj-card{width:min(320px,88vw);}
-  .projects-label{padding:1rem 1.5rem .6rem;}
-  .about-left,.about-right,.contact-left,.contact-right{padding:3.5rem 1.5rem;}
+  .hero-bl{border-right:none;border-bottom:1px solid var(--line);padding:1rem 1.2rem;}
+  .hero-br{justify-content:flex-start;padding:1rem 1.2rem;}
+
+  /* Project rows — stack on mobile */
+  .pr-row{grid-template-columns:1fr 110px;min-height:100px;}
+  .pr-row-main{padding:1.2rem 1.2rem;}
+  .pr-row-title{font-size:clamp(1.1rem,5vw,1.6rem);}
+  .projects-label{padding:1rem 1.2rem .6rem;}
+
+  /* About / contact */
+  .about-left,.about-right,.contact-left,.contact-right{padding:3rem 1.2rem;}
   .cf-row{grid-template-columns:1fr;}
 
   /* Project pages */
-  .pp-l,.pp-r{padding:2.5rem 1.5rem;}
+  .pp-l,.pp-r{padding:2rem 1.2rem;}
   .pp-title{font-size:clamp(1.8rem,10vw,3rem);}
-  .pp-cap{padding:.8rem 1.5rem;flex-direction:column;gap:.3rem;}
+  .pp-cap{padding:.8rem 1.2rem;flex-direction:column;gap:.3rem;}
 
-  /* Standard image grids */
+  /* Image grids */
   .pp-img-grid{grid-template-columns:1fr;}
   .pp-img-half{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3;}
-
-  /* FONT fashion grids */
   .font-hero-img{aspect-ratio:3/4;}
   .font-grid-3,.font-grid-4,.font-grid-2{grid-template-columns:1fr;}
   .font-grid-3 .fg-cell,.font-grid-4 .fg-cell,.font-grid-2 .fg-cell{
@@ -653,31 +656,20 @@ body{
   .font-grid-3 .fg-cell:not(:first-child),
   .font-grid-4 .fg-cell:not(:first-child),
   .font-grid-2 .fg-cell:not(:first-child){border-top:1px solid var(--line);}
-
-  /* Vinyl / estate / merch grids */
   .vinyl-grid,.merch-grid-2{grid-template-columns:1fr;}
   .vinyl-grid .vg-cell,.merch-grid-2 .mg-cell{border-right:none;border-bottom:1px solid var(--line);}
   .ep-grid-2{grid-template-columns:1fr;}
   .ep-grid-2 .ep-cell{border-right:none;border-bottom:1px solid var(--line);}
-
-  /* Estate photography portrait grid */
   .ep-grid-portrait{grid-template-columns:1fr;}
-  .ep-grid-portrait .ep-cell-tall{
-    border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3;
-  }
+  .ep-grid-portrait .ep-cell-tall{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3;}
   .ep-grid-portrait .ep-cell-wide{aspect-ratio:4/3;}
-
-  /* Spatial design */
   .sd-pair{grid-template-columns:1fr;}
   .sd-cell{border-right:none;border-bottom:1px solid var(--line);aspect-ratio:4/3 !important;}
   .sd-full{aspect-ratio:4/3;}
-
-  /* Credits */
   .credits-row{grid-template-columns:1fr;}
-  .credit-item{border-right:none;border-bottom:1px solid var(--line);padding:1.5rem 1.5rem;}
+  .credit-item{border-right:none;border-bottom:1px solid var(--line);padding:1.5rem 1.2rem;}
   .credit-item:last-child{border-bottom:none;}
-
-  .site-footer{flex-direction:column;align-items:flex-start;}
+  .site-footer{flex-direction:column;align-items:flex-start;padding:1.2rem;}
 }
 </style>
 </head>
@@ -737,105 +729,134 @@ body{
     </div>
   </section>
 
-  <!-- PROJECTS · HORIZONTAL SCROLL -->
+  <!-- PROJECTS — ROW LIST -->
   <section class="projects-section" id="projects">
     <div class="projects-label">
       <div class="projects-title"><span>PROJECTS</span></div>
-      <span class="projects-count">07 works · 2016 – 2024</span>
+      <span class="projects-count">07 works · 2016–2024</span>
     </div>
 
-    <div class="projects-track-wrap" id="track-wrap">
-      <div class="projects-track" id="track">
+    <div class="projects-list">
 
-        <a class="proj-card" onclick="showProject(1);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-1/Posters_wall.webp" alt="LSE Catering">
+      <a class="pr-row sa" onclick="showProject(1);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">01</span>
+            <h2 class="pr-row-title">LSE Catering</h2>
           </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">01</div>
-            <div class="proj-card-name">LSE Catering</div>
-            <div class="proj-card-cat">Identity / System</div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Identity / System</span>
+            <span class="pr-row-yr">2024</span>
           </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(2);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-2/RIK09786.jpg" alt="FONT Collection">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">02</div>
-            <div class="proj-card-name">FONT · Marine &amp; Botanical</div>
-            <div class="proj-card-cat">Textile / Collection</div>
-          </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(3);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-3b/12_FLOOR_FLAT_B-133.jpg" alt="Estate Photography">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">03</div>
-            <div class="proj-card-name">Estate Photography</div>
-            <div class="proj-card-cat">Photography / Interiors</div>
-          </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(4);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-3/Vinyl_Record_MOCKUP_COVER.jpg" alt="Abana">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">04</div>
-            <div class="proj-card-name">Abana · Sativa Jazz</div>
-            <div class="proj-card-cat">Record Artwork</div>
-          </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(5);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-06.jpg" alt="Ivreatronic">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">05</div>
-            <div class="proj-card-name">Ivreatronic</div>
-            <div class="proj-card-cat">Artwork / Apparel</div>
-          </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(6);return false;" href="#">
-          <div class="proj-card-img">
-            <img src="images/project-6/KITCHEN_AFTER_07.png" alt="Spatial Design">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">06</div>
-            <div class="proj-card-name">Spatial Design</div>
-            <div class="proj-card-cat">Interior / 3D Visualisation</div>
-          </div>
-        </a>
-
-        <a class="proj-card" onclick="showProject(7);return false;" href="#">
-          <div class="proj-card-img" style="background:#000;">
-            <img src="https://img.youtube.com/vi/EvGY2yTcZDY/maxresdefault.jpg" alt="Your Playground is the Sun">
-          </div>
-          <span class="proj-card-arrow"></span>
-          <div class="proj-card-info">
-            <div class="proj-card-num">07</div>
-            <div class="proj-card-name">Your Playground is the Sun</div>
-            <div class="proj-card-cat">Animation / Direction</div>
-          </div>
-        </a>
-
-        <div class="proj-card-hint">
-          <span class="proj-hint-text">Drag to explore</span>
         </div>
+        <div class="pr-row-preview">
+          <img src="images/project-1/Posters_wall.webp" alt="LSE Catering">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
 
-      </div>
+      <a class="pr-row sa" onclick="showProject(2);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">02</span>
+            <h2 class="pr-row-title">FONT · Marine &amp; Botanical</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Textile / Collection</span>
+            <span class="pr-row-yr">Italy</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="images/project-2/RIK09786.jpg" alt="FONT Collection">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
+      <a class="pr-row sa" onclick="showProject(3);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">03</span>
+            <h2 class="pr-row-title">Estate Photography</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Photography / Interiors</span>
+            <span class="pr-row-yr">London</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="images/project-3b/12_FLOOR_FLAT_B-133.jpg" alt="Estate Photography">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
+      <a class="pr-row sa" onclick="showProject(4);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">04</span>
+            <h2 class="pr-row-title">Abana · Sativa Jazz</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Record Artwork</span>
+            <span class="pr-row-yr">London</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="images/project-3/Vinyl_Record_MOCKUP_COVER.jpg" alt="Abana">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
+      <a class="pr-row sa" onclick="showProject(5);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">05</span>
+            <h2 class="pr-row-title">Ivreatronic</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Artwork / Apparel</span>
+            <span class="pr-row-yr">Ivrea, Italy</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="images/project-4/IVREATRONIC_T-SHIRT_DESIGN_MOCKUPS-06.jpg" alt="Ivreatronic">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
+      <a class="pr-row sa" onclick="showProject(6);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">06</span>
+            <h2 class="pr-row-title">Spatial Design</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Interior / 3D Visualisation</span>
+            <span class="pr-row-yr">Italy</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="images/project-6/KITCHEN_AFTER_07.png" alt="Spatial Design">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
+      <a class="pr-row sa" onclick="showProject(7);return false;" href="#">
+        <div class="pr-row-main">
+          <div class="pr-row-top">
+            <span class="pr-row-num">07</span>
+            <h2 class="pr-row-title">Your Playground is the Sun</h2>
+          </div>
+          <div class="pr-row-meta">
+            <span class="pr-row-cat">Animation / Direction</span>
+            <span class="pr-row-yr">2016</span>
+          </div>
+        </div>
+        <div class="pr-row-preview">
+          <img src="https://img.youtube.com/vi/EvGY2yTcZDY/maxresdefault.jpg" alt="Your Playground is the Sun">
+          <span class="pr-row-arrow"></span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -877,8 +898,9 @@ body{
     </div>
     <div class="contact-right sa sa-d1">
       <form class="cf" id="contact-form" onsubmit="submitForm(event)">
-        <input type="hidden" name="_replyto" value="info@michelebagnod.com">
-        <input type="hidden" name="_subject" value="New message from michelebagnod.com">
+        <input type="hidden" name="access_key" value="f4a7b2c1-3e8d-4f9a-b6c2-d1e5f8a3b7c4">
+        <input type="hidden" name="to" value="info@michelebagnod.com">
+        <input type="checkbox" name="botcheck" style="display:none;">
         <div class="cf-row">
           <div class="cf-field">
             <label for="cf-name">Name</label>
@@ -1246,24 +1268,6 @@ const obs = new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.sa').forEach(el=>obs.observe(el));
 
-/* HORIZONTAL DRAG SCROLL */
-const wrap = document.getElementById('track-wrap');
-if(wrap){
-  let isDown=false, startX, scrollLeft;
-  wrap.addEventListener('mousedown',e=>{
-    isDown=true; wrap.classList.add('active');
-    startX=e.pageX-wrap.offsetLeft; scrollLeft=wrap.scrollLeft;
-  });
-  wrap.addEventListener('mouseleave',()=>{isDown=false;});
-  wrap.addEventListener('mouseup',()=>{isDown=false;});
-  wrap.addEventListener('mousemove',e=>{
-    if(!isDown)return;
-    e.preventDefault();
-    const x=e.pageX-wrap.offsetLeft;
-    wrap.scrollLeft=scrollLeft-(x-startX)*1.2;
-  });
-}
-
 /* NAV */
 ['projects','about','contact'].forEach(id=>{
   document.querySelectorAll(`a[href="#${id}"]`).forEach(a=>{
@@ -1286,31 +1290,41 @@ function closeDrawer(){
   document.getElementById('hamburger').classList.remove('open');
 }
 
-/* CONTACT FORM — Formspree direct email */
+/* CONTACT FORM — Web3Forms direct email */
 async function submitForm(e){
   e.preventDefault();
   const form=document.getElementById('contact-form');
   const btn=form.querySelector('.cf-submit');
+  const originalText=btn.textContent;
   btn.textContent='Sending...';
   btn.disabled=true;
 
   const data=new FormData(form);
+  data.append('access_key','f4a7b2c1-3e8d-4f9a-b6c2-d1e5f8a3b7c4');
+  data.append('subject', data.get('subject') || 'New message from michelebagnod.com');
+  data.append('from_name','michelebagnod.com');
+
+  const json=JSON.stringify(Object.fromEntries(data));
+
   try{
-    const res=await fetch('https://formspree.io/f/xeogpovd',{
+    const res=await fetch('https://api.web3forms.com/submit',{
       method:'POST',
-      body:data,
-      headers:{'Accept':'application/json'}
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:json
     });
-    if(res.ok){
+    const result=await res.json();
+    if(result.success){
       form.querySelectorAll('.cf-field,.cf-submit').forEach(el=>el.style.display='none');
       document.getElementById('cf-success').style.display='block';
     } else {
-      btn.textContent='Try again';
+      btn.textContent=originalText;
       btn.disabled=false;
+      alert('Something went wrong. Please try again.');
     }
   } catch(err){
-    btn.textContent='Try again';
+    btn.textContent=originalText;
     btn.disabled=false;
+    alert('Connection error. Please try again.');
   }
 }
 
